@@ -67,7 +67,21 @@ When running the application,
 
 2. Through naming convention in ASP.NET core MVC architecture [^1], it will execute `Index` method in `HomeController` class in `..\Controllers\HomeController.cs` file.
    
+3. With the following code snippets,
 
+we can know that it will return `View()` and it will display the web page (according to `..\Views\Home\Index.cshtml` file).
+
+```
+    public class HomeController : Controller
+    {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        // ...
+    }
+```
 ## demo project
 See [Autofac_demo1.7z](https://gitlab.com/jayw711kb/asp.net-core-mvc-demo-project/-/blob/main/Autofac/Autofac_demo1.7z)
 
