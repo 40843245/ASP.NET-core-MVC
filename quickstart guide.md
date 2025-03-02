@@ -54,6 +54,19 @@ Step 6:
 
 That's done. Just wait for a minute.
 
+## understand the process of running the application
+You can understand the process of running the application with debugger and breakpoint.
+
+The [Demo project of Autofac demo1 in ASP.NET core MVC architecture](https://youtu.be/-q6rQ4UnKUY) illustrate the process of running the application with debugger and breakpoint.
+
+In above link, we can know that
+
+When running the application, 
+
+1. it will redirect the url as `https:\\<ipAddress>\Home\Index`.
+
+2. (Through naming convention in ASP.NET core MVC architecture), it will execute `Index` method in `HomeController` class in `..\Controllers\HomeController.cs` file.
+   
 
 ## demo project
 See [Autofac_demo1.7z](https://gitlab.com/jayw711kb/asp.net-core-mvc-demo-project/-/blob/main/Autofac/Autofac_demo1.7z)
