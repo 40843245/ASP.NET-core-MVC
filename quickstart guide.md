@@ -6,6 +6,22 @@ Before building a project with ASP.NET core MVC architecture, you have to instal
 2. .NET Framework
 3. ASP.NET core MVC
 
+Before developing a project with ASP.NET core MVC architecture, you have to build a project with ASP.NET core MVC architecture in VS IDE. And be familiar with
+
++ core design pattern of programming language
+
+  - OOP
+    
++ front-end
+
+  - html5 (a markup syntax)
+  - js (programming lanuage with weak type)
+  - jQuery (a kind of JS library) (based on JS and html)
+  - [AJAX](https://zh.wikipedia.org/zh-tw/AJAX) (stands for Asynchronic JavaScript And XML) (based on JS and html)
+  - [Razor syntax](https://zh.wikipedia.org/zh-tw/ASP.NET_Razor) (a markup syntax based on `html5`) (a `.cshtml` file supports Razor syntax and `.html` file supports) 
++ back-end
+  - C# programming language.
+
 ## quickstart guide
 ### building a project with ASP.NET core MVC architecture in VS IDE
 Similar step as building a project with Console in VS IDE.
