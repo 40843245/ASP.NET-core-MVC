@@ -65,10 +65,12 @@ When running the application,
 
 1. it will redirect the url as `https:\\<ipAddress>\Home\Index`.
 
-2. (Through naming convention in ASP.NET core MVC architecture), it will execute `Index` method in `HomeController` class in `..\Controllers\HomeController.cs` file.
+2. Through naming convention in ASP.NET core MVC architecture [^1], it will execute `Index` method in `HomeController` class in `..\Controllers\HomeController.cs` file.
    
 
 ## demo project
 See [Autofac_demo1.7z](https://gitlab.com/jayw711kb/asp.net-core-mvc-demo-project/-/blob/main/Autofac/Autofac_demo1.7z)
 
 See [Demo project of Autofac demo1 in ASP.NET core MVC architecture](https://youtu.be/-q6rQ4UnKUY)
+
+[^1] [naming convention in ASP.NET core MVC](https://github.com/40843245/ASP.NET-core-MVC/blob/main/naming%20convention/MS%20MVC%20naming%20convention.md)
