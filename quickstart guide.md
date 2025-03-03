@@ -94,11 +94,30 @@ The [Demo project of Autofac demo1 in ASP.NET core MVC architecture](https://you
 
 In above link, we can know that
 
-When running the application, 
+After server and database (if it needs) are BOTH connected successfully, it will set something about Views, Layouts etc before redirecting the url -- `https:\\<ipAddress>\Home\Index`. 
 
-1. it will redirect the url as `https:\\<ipAddress>\Home\Index`.
+1. it will read `..\Views\Shared\_ViewStart.cshtml`.
 
-2. Through naming convention in ASP.NET core MVC architecture [^1], it will execute `Index` method in `HomeController` class in `..\Controllers\HomeController.cs` file.
+`..\Views\Shared\_ViewStart.cshtml`
+ 
+```
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+```
+
+> [!TIP]
+> In Razor syntax, `~` in path means root directory.
+>
+> Thus, `"~/Views/Shared/_Layout.cshtml"` is a relative path that is represented as `"~/Views/Shared/_Layout.cshtml"` in Windows 11.
+
+With above code snippets, it will set default layout through rendering `..\Views\Shared\_Layout.cshtml`.
+
+After setting something about Views, Layouts etc,
+
+1. it will redirect the url -- `https:\\<ipAddress>\Home\Index`.
+
+2. According naming convention in ASP.NET core MVC architecture [^1], it will execute `Index` method in `HomeController` class in `..\Controllers\HomeController.cs` file.
    
 3. With the following code snippets,
 
@@ -118,26 +137,7 @@ part of code snippets in `..\Controllers\HomeController.cs`
     }
 ```
 
-However, before displaying the web page of `https:\\<ipAddress>\Home\Index`, the following `*.cshtml` file will be rendered.
-
-5. `..\Views\Shared\_ViewStart.cshtml` file will be rendered.
-
-`..\Views\Shared\_ViewStart.cshtml`
-
-```
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-```
-
-In above code snippets, we can know the `..\Views\Shared\_Layout.cshtml` file will be rendered as basic layout.
-
-> [!TIP]
-> In Razor syntax, `~` in path means root directory.
->
-> Thus, `"~/Views/Shared/_Layout.cshtml"` is a relative path that is represented as `"~/Views/Shared/_Layout.cshtml"` in Windows 11.
-
-6. Then `..\Views\Home\Index.cshtml` file will be rendered, displaying result on `https:\\<ipAddress>\Home\Index` web page.
+4. Then `..\Views\Home\Index.cshtml` file will be rendered
 
 `..\Views\Home\Index.cshtml`
 
@@ -159,6 +159,21 @@ In above code snippets, we can know the Title getter-setter property of ViewBag 
 >
 > To prove it, you can open webbrowser development tool and select element tab to see the contents of final generated `.html` file.
 
+Additionally, since we don't set specific layout in this file, it will use default layout.
+
+> [!TIP]
+> We can specify layout through adding `ViewBag.Layout = "...";` in first Razor block.
+>
+> For example,
+> 
+> ```
+> @{
+>   ViewBag.Title = "Home Page";
+>   ViewBag.Layout = "~/Views/Shared/_DefaultLayout`; // add this statement and
+> // check `..\Views\Shared\_DefaultLayout.cshtml` file exists.
+> }
+> ```
+
 ### process of running the application before the server successfully connected
 Let's dive it into this part.
 
@@ -174,8 +189,39 @@ For more detailed information about how to configure the setting of the applicat
 
 <img width="275" alt="image" src="https://github.com/user-attachments/assets/eb3488f0-fb53-4228-8c16-ae77c30cbf80" />
 
+3. Then it will try to connect the server and database (if it needs to connect database) through reading `..\Views\Shared\Web.config` file.
 
 ### process of running the application after the server successfully connected immediately
+Let's dive it into this part.
+
+After the server connected successfully, it will execute these scripts under `..\App_Start` folder.
+
+<img width="268" alt="image" src="https://github.com/user-attachments/assets/dccdb47e-fe07-49c6-a82c-89758bdbb0c8" />
+
+### summary
+After we press the `running` button in VS IDE, try to running the application under ASP.NET core MVC architecture, it will 
+compiles first. If there are no compiler error at compiler time, it will build the project. After building it will configure the setting of the application (through reading `..\Web.config` file then `..\Views\Shared\Web.config` file),
+After configurating the setting of the application, it will try to connect the server and database (if it needs to connect database) (through reading `..\Views\Shared\Web.config` file). If the connections are BOTH successful, it will configure some neccessary bundle or something else (through execute these scripts under `..\App_Start` folder). After that, it will try to render the first web page -- `https:\\<ipAddress>\Home\Index`. By naming convention under this architecture[^1], the `Index` method in `HomeController` class under `..\Controllers\HomeController.cs` file will be executed. According to  code snippets of `Index` method in `HomeController` class under `..\Controllers\HomeController.cs` file. 
+
+```
+    public class HomeController : Controller
+    {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        // ...
+    }
+```
+
+It will only return `View()`, rendering the `..\Views\Home\Index.cshtml`, display result on web page `https:\\<ipAddress>\Home\Index`.
+
+However, before rendering the `..\Views\Home\Index.cshtml`, it will render `..\Views\Shard\_ViewStart.cshtml` file `and set its default layout in `..\Views\Shared\_Layout.cshtml` file. we first configure the title of the web page as `HomePage` according `ViewBag.Title = "Home Page";` in first Razor block in this file. Since it will set specific layout (through `ViewBag.Layout = "...";`) in first Razor block in this file, it will use default layout.
+
+After that, it will continue to execute the following in this file. 
+
+After execution, it finishes rendering `..\Views\Home\Index.cshtml` file, and displaying the result on web page `https:\\<ipAddress>\Home\Index`.
 
 ## demo project
 See [Autofac_demo1.7z](https://gitlab.com/jayw711kb/asp.net-core-mvc-demo-project/-/blob/main/Autofac/Autofac_demo1.7z)
