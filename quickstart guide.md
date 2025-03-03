@@ -71,6 +71,13 @@ Step 6:
 That's done. Just wait for a minute.
 
 ## understand the process of running the application
+### process of running the application after the server successfully connected and ready to render first web page.
+Let's dive in this part first -- `process of running the application after the server successfully connected and ready to render first web page`.  
+
+I'm doing so because I think this is a fundamental part and is the simplest if you familiar with these [prequisites](). 
+
+Then we will dive it into these parts in following section respective -- `process of running the application before the server successfully connected`
+
 You can understand the process of running the application with debugger and breakpoint.
 
 The [Demo project of Autofac demo1 in ASP.NET core MVC architecture](https://youtu.be/-q6rQ4UnKUY) illustrate the process of running the application with debugger and breakpoint.
@@ -141,6 +148,8 @@ In above code snippets, we can know the Title getter-setter property of ViewBag 
 > Putting `<title>Home Page</title>` in `.html` file gets same result of placing `ViewBag.Title = "Home Page";` under Razor block in `.cshtml` file.
 >
 > To prove it, you can open webbrowser development tool and select element tab to see the contents of final generated `.html` file.
+
+## process of execution at startup of running the application.
 
 ## demo project
 See [Autofac_demo1.7z](https://gitlab.com/jayw711kb/asp.net-core-mvc-demo-project/-/blob/main/Autofac/Autofac_demo1.7z)
