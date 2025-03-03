@@ -71,14 +71,24 @@ Step 6:
 That's done. Just wait for a minute.
 
 ## understand the process of running the application
+We will dive into this part first -- `process of running the application after the server successfully connected and ready to render first web page`.  
+
+I'm doing so because I think this is a fundamental part and is the simplest if you familiar with these [prequisites](https://github.com/40843245/ASP.NET-core-MVC/blob/main/quickstart%20guide.md#prequisite). 
+
+But don't be worry, we will dive it into these fundamental parts that we need to know for 
+
+developing a project with ASP.NET core MVC architecture in following section respectively.
+
+  + `process of running the application before the server successfully connected`.
+
+  + `process of running the application after the server successfully connected immediately`.
+
+Then summarize it.
+
 ### process of running the application after the server successfully connected and ready to render first web page.
-Let's dive in this part first -- `process of running the application after the server successfully connected and ready to render first web page`.  
+Let's dive it into this part.
 
-I'm doing so because I think this is a fundamental part and is the simplest if you familiar with these [prequisites](). 
-
-Then we will dive it into these parts in following section respective -- `process of running the application before the server successfully connected`
-
-You can understand the process of running the application with debugger and breakpoint.
+You can understand the `process of running the application after the server successfully connected and ready to render first web page` with debugger and breakpoint.
 
 The [Demo project of Autofac demo1 in ASP.NET core MVC architecture](https://youtu.be/-q6rQ4UnKUY) illustrate the process of running the application with debugger and breakpoint.
 
@@ -149,7 +159,23 @@ In above code snippets, we can know the Title getter-setter property of ViewBag 
 >
 > To prove it, you can open webbrowser development tool and select element tab to see the contents of final generated `.html` file.
 
-## process of execution at startup of running the application.
+### process of running the application before the server successfully connected
+Let's dive it into this part.
+
+After we press the `running` button in VS IDE, the following processes will be executed respectively.
+
+1. it will configure the setting of the application under ASP.NET core MVC architecture through reading `..\Web.config` file.
+
+<img width="268" alt="image" src="https://github.com/user-attachments/assets/a92dd73e-af19-4352-b816-57e5b14000f0" />
+
+For more detailed information about how to configure the setting of the application under ASP.NET core MVC architecture, see [configure the setting of the application under ASP.NET core MVC architecture (obsolete)](https://learn.microsoft.com/en-us/previous-versions/aspnet/4w3ex9c2(v=vs.100)?redirectedfrom=MSDN)
+
+2. it will configure the setting of the application under ASP.NET core MVC architecture through reading `..\Views\Shared\Web.config` file.
+
+<img width="275" alt="image" src="https://github.com/user-attachments/assets/eb3488f0-fb53-4228-8c16-ae77c30cbf80" />
+
+
+### process of running the application after the server successfully connected immediately
 
 ## demo project
 See [Autofac_demo1.7z](https://gitlab.com/jayw711kb/asp.net-core-mvc-demo-project/-/blob/main/Autofac/Autofac_demo1.7z)
