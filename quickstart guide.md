@@ -119,7 +119,29 @@ In above code snippets, we can know the `..\Views\Shared\_Layout.cshtml` file wi
 > In Razor syntax, `~` in path means root directory.
 >
 > Thus, `"~/Views/Shared/_Layout.cshtml"` is a relative path that is represented as `"~/Views/Shared/_Layout.cshtml"` in Windows 11.
-  
+
+6. Then `..\Views\Home\Index.cshtml` file will be rendered, displaying result on `https:\\<ipAddress>\Home\Index` web page.
+
+`..\Views\Home\Index.cshtml`
+
+```
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<!-- ... -->
+<!-- other part of code that will be rendered, displaying result on `https:\\<ipAddress>\Home\Index` web page. -->
+```
+
+In above code snippets, we can know the Title getter-setter property of ViewBag class is set to `Home Page` 
+
+(which indicates that the title of the web page is `Home Page`)
+
+> [!TIP]
+> Putting `<title>Home Page</title>` in `.html` file gets same result of placing `ViewBag.Title = "Home Page";` under Razor block in `.cshtml` file.
+>
+> To prove it, you can open webbrowser development tool and select element tab to see the contents of final generated `.html` file.
+
 ## demo project
 See [Autofac_demo1.7z](https://gitlab.com/jayw711kb/asp.net-core-mvc-demo-project/-/blob/main/Autofac/Autofac_demo1.7z)
 
