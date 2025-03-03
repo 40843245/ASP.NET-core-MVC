@@ -87,6 +87,8 @@ When running the application,
 
 we can know that it will return `View()` and it will display the web page (according to `..\Views\Home\Index.cshtml` file).
 
+part of code snippets in `..\Controllers\HomeController.cs`
+
 ```
     public class HomeController : Controller
     {
@@ -98,6 +100,26 @@ we can know that it will return `View()` and it will display the web page (accor
         // ...
     }
 ```
+
+However, before displaying the web page of `https:\\<ipAddress>\Home\Index`, the following `*.cshtml` file will be rendered.
+
+5. `..\Views\Shared\_ViewStart.cshtml` file will be rendered.
+
+`..\Views\Shared\_ViewStart.cshtml`
+
+```
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+```
+
+In above code snippets, we can know the `..\Views\Shared\_Layout.cshtml` file will be rendered as basic layout.
+
+> [!TIP]
+> In Razor syntax, `~` in path means root directory.
+>
+> Thus, `"~/Views/Shared/_Layout.cshtml"` is a relative path that is represented as `"~/Views/Shared/_Layout.cshtml"` in Windows 11.
+  
 ## demo project
 See [Autofac_demo1.7z](https://gitlab.com/jayw711kb/asp.net-core-mvc-demo-project/-/blob/main/Autofac/Autofac_demo1.7z)
 
