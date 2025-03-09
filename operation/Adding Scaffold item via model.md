@@ -1,7 +1,14 @@
 # Adding Scaffold item via model
 Step 1:
 
-Create a class in `..\Models` folder.
+Create a data model class `<ModelClass>` in `..\Models` folder.
+
+> [!WARNING]
+> The data model class must have a key.
+>
+> By default, Entity Framework CodeFirst recognize the key by name Valid names are Id or `<ModelClass>Id`.
+>
+> For more information, see [Creating Primary Key field on MVC class](https://stackoverflow.com/questions/10236819/creating-primary-key-field-on-mvc-class)
 
 Step 2:
 
