@@ -7,6 +7,11 @@ Step 2:
 
 Install `Microsoft.EntityFrameworkCore.Design` package.
 
+> [!WARNING]
+> Please make sure that requirements of `Microsoft.EntityFrameworkCore.Design`.
+>
+> The requirements of `Microsoft.EntityFrameworkCore.Design` package depends on `.NET Framework`.
+
 > [!TIP]
 > You can install package through
 >
