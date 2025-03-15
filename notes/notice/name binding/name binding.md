@@ -27,8 +27,65 @@ When a request from front-end platform sent to back-end platform, the back-end a
 </form>
 ```
 
+#### example 2
+##### wrong example
+In `UserInfo.cs` as view model
+
+```
+//...
+public class UserInfo
+{
+ public int Id {get;set;}
+ public string UserName {get;set;}
+}
+//...
+```
+
+In `..\Controllers\UserInfoController.cs`
+
+```
+//...
+public class UserInfoController : Controller
+{
+   public ActionResult Index()
+   {
+     reutrn View();
+   }
+
+   public ActionResult Index(UserInfo vm)
+   {
+     reutrn View(vm);
+   }
+   //...
+}
+// ...
+```
+
+In `..\Views\UserInfo\Index.cshtml`
+
+```
+@model YourProjectName.Models.UserInfo;
+
+//...
+
+@using(Html.Begin("Index.""UserInfo")){
+  @Html.HiddenFor(model => model.UserName) // may choose this element or may not.
+  <h2>Index pgae<h2>
+  <input name="@Html.NameFor(model => model.UserName)"> // may choose this element or may not.
+}
+```
+
+The compiler will parse `.cshtml` into `.html`,
+
+And generate a html elenment
+
+ `<input type="file" name = "JobResume">` 
 
 
+`@Html.HiddenFor(model => model.UserName)` will be parsed to `<input type="file" name = "JobResume">` 
 
+which
+
+there are duplicated tag by nam attribute.
 
 
