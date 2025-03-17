@@ -10,6 +10,10 @@ open an existing SQL Query from local device.
 
 Step 2:
 
+Write your SQL Query.
+
+Step 3:
+
 Undo highlight.
 
 Then click the execute icon <img width="19" alt="image" src="https://github.com/user-attachments/assets/63fa6ecc-b95b-4fae-b07e-ecfbc0ce30cb" /> in SQL Query Panel.
