@@ -20,3 +20,6 @@ Then click the execute icon <img width="19" alt="image" src="https://github.com/
 
 <img width="431" alt="image" src="https://github.com/user-attachments/assets/9a589c6f-58cb-4866-9a8c-f0d34dca4f18" />
 
+Then you will see output.
+
+<img width="428" alt="image" src="https://github.com/user-attachments/assets/624476ac-a7c6-40f3-81ed-aa9dc99caa30" />
