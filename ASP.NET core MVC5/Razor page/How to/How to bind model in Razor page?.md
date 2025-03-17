@@ -23,6 +23,12 @@ namespace MediaManagerSystem.Models.FormBean
 Then in a Razor page, I can use `account_info` model using `@model` like this
 
 ```
+@model MediaManagerSystem.Models.FormBean.account_info
+```
+
+or like this
+
+```
 @model IEnumerable<MediaManagerSystem.Models.FormBean.account_info>
 ```
 
