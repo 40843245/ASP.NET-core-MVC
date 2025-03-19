@@ -58,7 +58,7 @@ In `Application_Start` method call, it will invoke `AreaRegistration.RegisterAll
 
 ## part 1.3
 
-Then it will invoke `WebApiConfig.Register(GlobalConfiguration.Configuration);` (`WebApiConfig` static class is defined in `..\App_Start\WebApiConfig.cs` file) to configure the route and register it.
+Then it will invoke `WebApiConfig.Register(GlobalConfiguration.Configuration);` (is defined in `WebApiConfig` static class in `..\App_Start\WebApiConfig.cs` file) to configure the route and register it.
 
 You can see how the route is configured in this statement.
 
@@ -85,7 +85,6 @@ in `WebApiConfig` class.
         }
     }
 ```
-```
 
 > [!NOTE]
 > By default, the naming convention of url explained in [this article](https://github.com/40843245/ASP.NET-core-MVC/blob/main/naming%20convention/MS%20MVC%20naming%20convention.md#url) is
@@ -109,6 +108,16 @@ in `WebApiConfig` class.
 > [!NOTE]
 > To learn more about routing in ASP.NET application, you can see [Routing in ASP.NET Web API (MSDS)](https://learn.microsoft.com/en-us/aspnet/web-api/overview/web-api-routing-and-actions/routing-in-aspnet-web-api)
 
-## part 1.3
+### part 1.3
 
-After that, it will executed `FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);` to register the filter globally.
+After that, it will executed `FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);` (defined in `GlobalFilter` static class in `..\App_Start\FilterConfig.cs` file) to register the filter globally.
+
+```
+    public class FilterConfig
+    {
+        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        {
+            filters.Add(new HandleErrorAttribute());
+        }
+    }
+```
