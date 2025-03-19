@@ -234,3 +234,228 @@ In `bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-2
 > To hear Google Gemini analysis,
 >
 > see [Answers from Google Gemini about BundleConfig.RegisterBundles](https://github.com/40843245/ASP.NET-core-MVC/blob/main/ASP.NET%20core%20MVC4/Answers/Answers%20from%20AI%20model/Google%20Gemini/BundleConfig.RegisterBundles.md)
+
+### part 1.7
+After that, it will invoke `AutofacConfig.Initialize();` (defined in `AutofacConfig` class in `..\App_Start\AutofacConfig.cs` to initialize the configuration about `Autofac` module.
+
+`AutofacConfig.cs` file
+
+```
+    public class AutofacConfig
+    {
+        public static IContainer Container { get; set; }
+
+        public static void Initialize()
+        {
+            ContainerBuilder builder = new ContainerBuilder();
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterModule(new AutoMapperModule());
+            builder.RegisterModule(new DataAccessModule());
+            builder.RegisterModule(new CommonHandleModule());
+            builder.RegisterModule(new AttributeModule());
+
+            #region For AutoMapper
+            IContainer container = builder.Build();
+            var profiles = container.Resolve<IEnumerable<BaseProfile>>();
+            Mapper.Initialize(x =>
+            {
+                x.ConstructServicesUsing(container.Resolve);
+                profiles.ToList().ForEach(x.AddProfile);
+            });
+            Container = container;
+            #endregion
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+        }
+    }
+```
+
+where 
+
++ `AutoMapperModule` class is defined in `..\Modules\AutoMapperModule.cs` file.
+
+```
+namespace AKM.Modules
+{
+    public class AutoMapperModule : Autofac.Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .Where(t => t.Name.EndsWith("Profile"))
+                .As(t => t.BaseType);
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .Where(t => t.Name.EndsWith("Resolver"));
+        }
+    }
+}
+```
+
++ `DataAccessModule` class is defined in `..\Modules\DataAccessModule.cs` file
+
+```
+namespace AKM.Modules
+{
+    public class DataAccessModule : Autofac.Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<AKMContextFactory>().Keyed<IContextFactory>(ContextEnum.AKMContext);
+            builder.Register<Func<ContextEnum, IContextFactory>>(c => s => c.ResolveKeyed<IContextFactory>(s));
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .Where(t => t.Name.EndsWith("Repository"))
+                .AsImplementedInterfaces();
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .Where(t => t.Name.EndsWith("Service"))
+                .AsImplementedInterfaces();
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .Where(t => t.Name.EndsWith("SqlQuery"))
+                .AsImplementedInterfaces();
+        }
+    }
+}
+```
+
++ `CommonHandleModule` class is defined in `..\Modules\CommonHandleModule.cs`
+
+```
+namespace AKM.Modules
+{
+    public class CommonHandleModule : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType(typeof(Encryption)).As(typeof(IEncryption));
+            builder.RegisterType(typeof(ParameterEncryption)).As(typeof(IParameterEncryption));
+            builder.RegisterType(typeof(Authorization)).As(typeof(IAuthorization));
+            builder.RegisterType(typeof(TreeGenerator)).As(typeof(ITreeGenerator));
+
+            #region ReportType
+
+            builder.RegisterType<LastDocumentReportType>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.LastDocument);
+
+            builder.RegisterType<PlatformDocShareReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.PlatformDocShare);
+
+            builder.RegisterType<ProfessionalFieldReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.ProfessionalField);
+
+            builder.RegisterType<ProfessionalFieldRootReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.ProfessionalFieldRoot);
+
+            builder.RegisterType<EverymounthExpertReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.EverymounthExpert);
+
+            builder.RegisterType<LikeExpertReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.LikeExpert);
+
+            builder.RegisterType<FeaturesExpertPeport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.FeaturesExpert);
+
+            builder.RegisterType<ProfessionalFieldIsCommonReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.ProfessionalFieldIsCommon);
+
+            builder.RegisterType<ExpertExperienceReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.ExpertExperience);
+
+            builder.RegisterType<ExpertExpertiseReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.ExpertExpertise);
+
+            builder.RegisterType<ExpertCalendarReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.ExpertCalendar);
+
+            builder.RegisterType<EverymounthCourseReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.EverymounthCourse);
+
+            builder.RegisterType<FeaturesCourseReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.FeaturesCourse);
+
+            builder.RegisterType<CourseFieldReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.CourseField);
+
+            builder.RegisterType<CommonLinkReport>()
+               .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.CommonLink);
+
+            builder.RegisterType<NewsCollectReport>()
+               .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.NewsCollect);
+
+            builder.RegisterType<PdLawRegulationReport>()
+              .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.PdLawRegulation);
+
+            builder.RegisterType<PdLawOperationFlowReport>()
+               .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.PdLawOperationFlow);
+
+            builder.RegisterType<LastRegulationReport>()
+               .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.LastPdPdLawRegulation);
+
+            builder.RegisterType<LastOperationFlowReport>()
+              .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.LastPdLawOperationFlow);
+
+            builder.RegisterType<PersonnelShareReport>()
+             .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.PersonnelShare);
+
+            builder.RegisterType<ProfessionalShowHomeReport>()
+            .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.ProfessionalShowHomeReport);
+
+            builder.RegisterType<EbasAnnouncementReport>()
+           .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.EbasAnnouncementReport);
+
+            builder.RegisterType<BulletinReport>()
+            .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.BulletinReport);
+            builder.RegisterType<PersonnelBulletinSystemReport>()
+             .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.PersonnelBulletinSystemReport);
+            builder.RegisterType<PersonnelBulletinNewReport>()
+             .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.PersonnelBulletinNewReport);
+            builder.RegisterType<PersonnelTableReport>()
+            .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.PersonnelTableReport);
+            builder.RegisterType<PersonnelStatisticsReport>()
+             .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.PersonnelStatisticsReport);
+            builder.RegisterType<PersonnelBusinessReport>()
+            .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.PersonnelBusinessReport);
+            builder.RegisterType<PersonnelTrainReport>()
+           .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.PersonnelTrainReport);
+
+            builder.RegisterType<LastCourseReport>()
+            .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.LastCourseReport);
+            builder.RegisterType<UnitDepReport>()
+            .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.UnitDep);
+            builder.RegisterType<UnitDepShareReport>()
+             .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.UnitDepShare);
+
+            // 20240206 註冊 e等公務員專區功能
+            builder.RegisterType<CommonLinkEOpenReport>()
+                .As<IReportType>().Keyed<IReportType>(ReportConstants.ReportType.CommonLinkEOpen);
+
+            //Factory
+            builder.Register<Func<ReportConstants.ReportType, IReportType>>(c =>
+            {
+                var componentContext = c.Resolve<IComponentContext>();
+                return (reportType) =>
+                {
+                    var ReportType = componentContext.ResolveKeyed<IReportType>(reportType);
+                    return ReportType;
+                };
+            });
+
+            #endregion
+        }
+    }
+}
+```
+
+> [!NOTE]
+> For more informations about API,
+>
+> + [Autofac.ContainerBuilder class (Autofac .NET docs)](https://autofac.org/apidoc/html/717248.htm)
+> 
+
+> [!NOTE]
+> To hear Google Gemini analysis,
+>
+> + see [Answers from Google Gemini about AutofacConfig.Initialize](https://github.com/40843245/ASP.NET-core-MVC/blob/main/ASP.NET%20core%20MVC4/Answers/Answers%20from%20AI%20model/Google%20Gemini/AutofacConfig.Initialize.md)
+> + see [Answer from Google Gemini about defining AutoMapperModule that inherits Autofac.Module class](https://github.com/40843245/ASP.NET-core-MVC/blob/main/ASP.NET%20core%20MVC4/Answers/Answers%20from%20AI%20model/Google%20Gemini/AutoMapperModule%C2%A0%3A%C2%A0Autofac.Module%20class.md)
