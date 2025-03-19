@@ -60,9 +60,9 @@ In `Application_Start` method call, it will invoke `AreaRegistration.RegisterAll
 
 ### part 1.3
 
-Then it will invoke `WebApiConfig.Register(GlobalConfiguration.Configuration);` (is defined in `WebApiConfig` static class in `..\App_Start\WebApiConfig.cs` file) to configure the route and register it.
+Then it will invoke `WebApiConfig.Register(GlobalConfiguration.Configuration);` (is defined in `WebApiConfig` static class in `..\App_Start\WebApiConfig.cs` file) to configure the web api configurations.
 
-You can see how the route is configured in this statement.
+You can see how the route is configured in this statement
 
 ```
 config.Routes.MapHttpRoute(
@@ -87,25 +87,6 @@ in `WebApiConfig` class.
         }
     }
 ```
-
-> [!NOTE]
-> By default, the naming convention of url explained in [this article](https://github.com/40843245/ASP.NET-core-MVC/blob/main/naming%20convention/MS%20MVC%20naming%20convention.md#url) is
->
-> ```
-> http:<ipAddress>/<fileNameExecutedWithoutSuffixController>/<invokedMethod><queries>
-> ```
->
-> The reason why can be found in the above code snippet.
->
-> In the above code snippet, it will invoke `config.Routes.MapHttpRoute` method with `routeTemplate` argument passed as `"api/{controller}/{id}"`
->
-> which indicates the url will be look like
->
-> ```
-> http:<ipAddress>/<fileNameExecutedWithoutSuffixController>/<invokedMethod><queries>
-> ```
-> 
-> You can set how the url will look like here.
 
 > [!NOTE]
 > To learn more about routing in ASP.NET application, you can see [Routing in ASP.NET Web API (MSDS)](https://learn.microsoft.com/en-us/aspnet/web-api/overview/web-api-routing-and-actions/routing-in-aspnet-web-api)
@@ -146,4 +127,56 @@ Thus, invoking `filters.Add(new HandleErrorAttribute());` will add an filter tha
 
 ### part 1.5
 
-After that, it will execute `RouteConfig.RegisterRoutes(RouteTable.Routes);` to register the route.
+After that, it will execute `RouteConfig.RegisterRoutes(RouteTable.Routes);` (defined in `RouteConfig` static class in `..\App_Start\RouteConfig.cs` file) to ignore the route which is defined in `.axd` file then register the route.
+
+```
+    public class RouteConfig
+    {
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+        }
+    }
+```
+
+> [!NOTE]
+> By default, the naming convention of url explained in [this article](https://github.com/40843245/ASP.NET-core-MVC/blob/main/naming%20convention/MS%20MVC%20naming%20convention.md#url) is
+>
+> ```
+> http:<ipAddress>/<fileNameExecutedWithoutSuffixController>/<invokedMethod><queries>
+> ```
+>
+> The reason why can be found in the above code snippet.
+>
+> In the above code snippet, it will invoke `routes.MapRoute` method with `url` argument passed as `"{controller}/{action}/{id}"`
+>
+> which indicates the url will be look like
+>
+> ```
+> http:<ipAddress>/<fileNameExecutedWithoutSuffixController>/<invokedMethod><queries>
+> ```
+> 
+> You can set how the url will look like here.
+
+> [!NOTE]
+> By default, when the application is running, it will redirect to
+>
+> ```
+> http:<ipAddress>/Home/Index
+> ```
+>
+> The reason why can be found in the above code snippet.
+>
+> In the above code snippet, it will invoke `routes.MapRoute` method with `defaults` argument passed as `new { controller = "Home", action = "Index", id = UrlParameter.Optional }`
+>
+
+> [!NOTE]
+> To hear Google Gemini analysis,
+>
+> see [Answers from Google Gemini about RouteConfig.RegisterRoutes](https://github.com/40843245/ASP.NET-core-MVC/blob/main/ASP.NET%20core%20MVC4/Answers/Answers%20from%20AI%20model/Google%20Gemini/RouteConfig.RegisterRoutes.md)
