@@ -122,6 +122,14 @@ After that, it will executed `FilterConfig.RegisterGlobalFilters(GlobalFilters.F
     }
 ```
 
+Let's breakdown.
+
++ `HandleErrorAttribute` is an attribute that represents how to handle an exception that is thrown by an action method (such as `public ActionResult Create(){ // ...} )`.
+
++ `GlobalFilterCollection` is a collection that represents all filters that will be used globally.
+
+Thus, invoking `filters.Add(new HandleErrorAttribute());` will add an filter that handles an exception that is thrown by an action method
+
 > [!NOTE]
 > For more information about API,
 >
