@@ -1,4 +1,4 @@
-3# application running process.
+# application running process.
 ## part 1
 
 When the ASP.NET core MVC4 application runs, it will run the entry point (i.e. invoking `Application_Start` method in `MvcApplication` class (in `Global.asax.cs` file))
