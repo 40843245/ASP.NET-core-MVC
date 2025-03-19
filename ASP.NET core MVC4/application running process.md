@@ -98,7 +98,7 @@ in `WebApiConfig` class.
 
 ### part 1.4
 
-After that, it will executed `FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);` (defined in `GlobalFilter`  class in `..\App_Start\FilterConfig.cs` file) to register the filter globally.
+After that, it will invoke `FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);` (defined in `GlobalFilter`  class in `..\App_Start\FilterConfig.cs` file) to register the filter globally.
 
 ```
     public class FilterConfig
@@ -127,7 +127,7 @@ Thus, invoking `filters.Add(new HandleErrorAttribute());` will add an filter tha
 
 ### part 1.5
 
-After that, it will execute `RouteConfig.RegisterRoutes(RouteTable.Routes);` (defined in `RouteConfig` class in `..\App_Start\RouteConfig.cs` file) to ignore the route which is defined in `.axd` file then register the route.
+After that, it will invoke `RouteConfig.RegisterRoutes(RouteTable.Routes);` (defined in `RouteConfig` class in `..\App_Start\RouteConfig.cs` file) to ignore the route which is defined in `.axd` file then register the route.
 
 ```
     public class RouteConfig
@@ -186,17 +186,49 @@ After that, it will execute `RouteConfig.RegisterRoutes(RouteTable.Routes);` (de
 > see [Answers from Google Gemini about RouteConfig.RegisterRoutes](https://github.com/40843245/ASP.NET-core-MVC/blob/main/ASP.NET%20core%20MVC4/Answers/Answers%20from%20AI%20model/Google%20Gemini/RouteConfig.RegisterRoutes.md)
 
 ### part 1.6
+After that, it will invoke `BundleConfig.RegisterBundles(BundleTable.Bundles);` (defined in `BundleConfig` class in `..\App_Start\BundleConfig.cs` file) to register some bundles 
+
+so that we can use some JS scripts in this project.
+
+```
+    public class BundleConfig
+    {
+        // 如需 Bundling 的詳細資訊，請造訪 http://go.microsoft.com/fwlink/?LinkId=254725
+        public static void RegisterBundles(BundleCollection bundles)
+        {
+            // clear the bundles ignore list.
+            bundles.IgnoreList.Clear();
+
+            // add this file as a script into bundle collection so that we can use this file in this project. 
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                "~/Scripts/jquery-2.0.3/jquery-2.0.3.js"));
+
+            // ... other `bundle.Add` method invocation.  
+        }
+    }
+```
+
+In `bundles.IgnoreList.Clear();` statement, the ignore of bundles will be cleared.
+
+In `bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-2.0.3/jquery-2.0.3.js"));` statement, we add this file as a script into bundle collection so that we can use this file in this project. 
+
+![image](https://github.com/user-attachments/assets/4bdf147c-9cb6-4963-80d1-019400a0a272)
 
 > [!NOTE]
 > For more information about API,
 >
 > + [System.Web.Optimization.BundleCollection class (MSDS)](https://learn.microsoft.com/en-us/previous-versions/aspnet/hh195147%28v%3dvs.110%29)
+> + [System.Web.Optimization.BundleCollection.ScriptBundle class (MSDS)](https://learn.microsoft.com/en-us/previous-versions/aspnet/jj646584%28v%3dvs.110%29)
 
 > [!WARNING]
 > The MSDS [System.Web.Optimization.BundleCollection class (MSDS)](https://learn.microsoft.com/en-us/previous-versions/aspnet/hh195147%28v%3dvs.110%29) says that:
 >> We're no longer updating this content regularly. Check the [Microsoft Product Lifecycle](https://learn.microsoft.com/lifecycle/products) for information about how this product, service, technology, or API is supported.
 >> ![image](https://github.com/user-attachments/assets/6cd6f6e5-74b3-4c19-b7e6-185aeff658b9)
 
+> [!WARNING]
+> The MSDS [System.Web.Optimization.BundleCollection.ScriptBundle class (MSDS)](https://learn.microsoft.com/en-us/previous-versions/aspnet/jj646584%28v%3dvs.110%29)says that:
+>> We're no longer updating this content regularly. Check the [Microsoft Product Lifecycle](https://learn.microsoft.com/lifecycle/products) for information about how this product, service, technology, or API is supported.
+>> ![image](https://github.com/user-attachments/assets/eafe1a07-6dcd-4325-aad0-7b53c150dadd)
 
 > [!NOTE]
 > To hear Google Gemini analysis,
