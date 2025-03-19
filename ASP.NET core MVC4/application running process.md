@@ -60,7 +60,32 @@ In `Application_Start` method call, it will invoke `AreaRegistration.RegisterAll
 
 Then it will invoke `WebApiConfig.Register(GlobalConfiguration.Configuration);` (`WebApiConfig` static class is defined in `..\App_Start\WebApiConfig.cs` file) to configure the route and register it.
 
-You can see why the format of url will look like.
+You can see how the route is configured in this statement.
+
+```
+config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+```
+
+in `WebApiConfig` class.
+
+```
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+        }
+    }
+```
+```
 
 > [!NOTE]
 > By default, the naming convention of url explained in [this article](https://github.com/40843245/ASP.NET-core-MVC/blob/main/naming%20convention/MS%20MVC%20naming%20convention.md#url) is
@@ -69,21 +94,7 @@ You can see why the format of url will look like.
 > http:<ipAddress>/<fileNameExecutedWithoutSuffixController>/<invokedMethod><queries>
 > ```
 >
-> The reason why can be found in the following code snippet.
->
-> ```
->   public static class WebApiConfig
->   {
->       public static void Register(HttpConfiguration config)
->        {
->           config.Routes.MapHttpRoute(
->               name: "DefaultApi",
->               routeTemplate: "api/{controller}/{id}",
->               defaults: new { id = RouteParameter.Optional }
->           );
->       }
->    }
-> ```
+> The reason why can be found in the above code snippet.
 >
 > In the above code snippet, it will invoke `config.Routes.MapHttpRoute` method with `routeTemplate` argument passed as `"api/{controller}/{id}"`
 >
@@ -93,7 +104,7 @@ You can see why the format of url will look like.
 > http:<ipAddress>/<fileNameExecutedWithoutSuffixController>/<invokedMethod><queries>
 > ```
 > 
-> You can set the url here.
+> You can set how the url will look like here.
 
 > [!NOTE]
 > To learn more about routing in ASP.NET application, you can see [Routing in ASP.NET Web API (MSDS)](https://learn.microsoft.com/en-us/aspnet/web-api/overview/web-api-routing-and-actions/routing-in-aspnet-web-api)
