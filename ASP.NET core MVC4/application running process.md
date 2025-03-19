@@ -49,14 +49,16 @@ namespace AKM
 >
 > And `Application_Error` method of `MvcApplication` will be executed iff the it throws an exception when running on server. 
 
-## part 1.2
+### part 1.2
 
 In `Application_Start` method call, it will invoke `AreaRegistration.RegisterAllAreas();` to registers all areas in an `ASP.NET MVC` application.
 
 > [!NOTE]
-> More information about `AreaRegistration.RegisterAllAreas` static method call, see [`AreaRegistration.RegisterAllAreas method (MSDS)`](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.arearegistration.registerallareas?view=aspnet-mvc-5.2)
+> For more information about API,
+>
+> + see [`AreaRegistration.RegisterAllAreas method (MSDS)`](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.arearegistration.registerallareas?view=aspnet-mvc-5.2)
 
-## part 1.3
+### part 1.3
 
 Then it will invoke `WebApiConfig.Register(GlobalConfiguration.Configuration);` (is defined in `WebApiConfig` static class in `..\App_Start\WebApiConfig.cs` file) to configure the route and register it.
 
@@ -108,7 +110,7 @@ in `WebApiConfig` class.
 > [!NOTE]
 > To learn more about routing in ASP.NET application, you can see [Routing in ASP.NET Web API (MSDS)](https://learn.microsoft.com/en-us/aspnet/web-api/overview/web-api-routing-and-actions/routing-in-aspnet-web-api)
 
-### part 1.3
+### part 1.4
 
 After that, it will executed `FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);` (defined in `GlobalFilter` static class in `..\App_Start\FilterConfig.cs` file) to register the filter globally.
 
@@ -136,3 +138,7 @@ Thus, invoking `filters.Add(new HandleErrorAttribute());` will add an filter tha
 > + [System.Web.Mvc.GlobalFilterCollection class (MSDS)](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.globalfiltercollection?view=aspnet-mvc-5.2)
 >
 > + [System.Web.Mvc.HandleErrorAttribute class (MSDS)](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.handleerrorattribute?view=aspnet-mvc-5.2)
+
+### part 1.5
+
+After that, it will execute `RouteConfig.RegisterRoutes(RouteTable.Routes);` to register the route.
