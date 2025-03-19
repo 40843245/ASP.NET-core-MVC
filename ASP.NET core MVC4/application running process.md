@@ -1,4 +1,4 @@
-# application running process.
+3# application running process.
 ## part 1
 
 When the ASP.NET core MVC4 application runs, it will run the entry point (i.e. invoking `Application_Start` method in `MvcApplication` class (in `Global.asax.cs` file))
@@ -60,7 +60,7 @@ In `Application_Start` method call, it will invoke `AreaRegistration.RegisterAll
 
 ### part 1.3
 
-Then it will invoke `WebApiConfig.Register(GlobalConfiguration.Configuration);` (is defined in `WebApiConfig` static class in `..\App_Start\WebApiConfig.cs` file) to configure the web api configurations.
+Then it will invoke `WebApiConfig.Register(GlobalConfiguration.Configuration);` (is defined in `WebApiConfig` class in `..\App_Start\WebApiConfig.cs` file) to configure the web api configurations.
 
 You can see how the route is configured in this statement
 
@@ -98,7 +98,7 @@ in `WebApiConfig` class.
 
 ### part 1.4
 
-After that, it will executed `FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);` (defined in `GlobalFilter` static class in `..\App_Start\FilterConfig.cs` file) to register the filter globally.
+After that, it will executed `FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);` (defined in `GlobalFilter`  class in `..\App_Start\FilterConfig.cs` file) to register the filter globally.
 
 ```
     public class FilterConfig
@@ -127,7 +127,7 @@ Thus, invoking `filters.Add(new HandleErrorAttribute());` will add an filter tha
 
 ### part 1.5
 
-After that, it will execute `RouteConfig.RegisterRoutes(RouteTable.Routes);` (defined in `RouteConfig` static class in `..\App_Start\RouteConfig.cs` file) to ignore the route which is defined in `.axd` file then register the route.
+After that, it will execute `RouteConfig.RegisterRoutes(RouteTable.Routes);` (defined in `RouteConfig` class in `..\App_Start\RouteConfig.cs` file) to ignore the route which is defined in `.axd` file then register the route.
 
 ```
     public class RouteConfig
@@ -184,3 +184,21 @@ After that, it will execute `RouteConfig.RegisterRoutes(RouteTable.Routes);` (de
 > To hear Google Gemini analysis,
 >
 > see [Answers from Google Gemini about RouteConfig.RegisterRoutes](https://github.com/40843245/ASP.NET-core-MVC/blob/main/ASP.NET%20core%20MVC4/Answers/Answers%20from%20AI%20model/Google%20Gemini/RouteConfig.RegisterRoutes.md)
+
+### part 1.6
+
+> [!NOTE]
+> For more information about API,
+>
+> + [System.Web.Optimization.BundleCollection class (MSDS)](https://learn.microsoft.com/en-us/previous-versions/aspnet/hh195147%28v%3dvs.110%29)
+
+> [!WARNING]
+> The MSDS [System.Web.Optimization.BundleCollection class (MSDS)](https://learn.microsoft.com/en-us/previous-versions/aspnet/hh195147%28v%3dvs.110%29) says that:
+>> We're no longer updating this content regularly. Check the [Microsoft Product Lifecycle](https://learn.microsoft.com/lifecycle/products) for information about how this product, service, technology, or API is supported.
+>> ![image](https://github.com/user-attachments/assets/6cd6f6e5-74b3-4c19-b7e6-185aeff658b9)
+
+
+> [!NOTE]
+> To hear Google Gemini analysis,
+>
+> see [Answers from Google Gemini about BundleConfig.RegisterBundles](https://github.com/40843245/ASP.NET-core-MVC/blob/main/ASP.NET%20core%20MVC4/Answers/Answers%20from%20AI%20model/Google%20Gemini/BundleConfig.RegisterBundles.md)
