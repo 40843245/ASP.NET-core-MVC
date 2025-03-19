@@ -1,7 +1,7 @@
 # Answers from Google Gemini about `AutofacConfig.Initialize`
 ## Questions
 ```
-    public class AutofacConfig
+public class AutofacConfig
     {
         public static IContainer Container { get; set; }
 
