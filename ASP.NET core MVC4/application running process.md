@@ -110,6 +110,11 @@ in `WebApiConfig` class.
 > [!NOTE]
 > To learn more about routing in ASP.NET application, you can see [Routing in ASP.NET Web API (MSDS)](https://learn.microsoft.com/en-us/aspnet/web-api/overview/web-api-routing-and-actions/routing-in-aspnet-web-api)
 
+> [!NOTE]
+> To hear the Google Gemini analysis,
+>
+> see [Answers from Google Gemini about WebConfig.Register](https://github.com/40843245/ASP.NET-core-MVC/blob/main/ASP.NET%20core%20MVC4/Answers/Answers%20from%20AI%20model/Google%20Gemini/WebConfig.Register.md#answers-from-google-gemini-about-webconfigregister)
+
 ### part 1.4
 
 After that, it will executed `FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);` (defined in `GlobalFilter` static class in `..\App_Start\FilterConfig.cs` file) to register the filter globally.
