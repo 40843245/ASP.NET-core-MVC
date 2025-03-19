@@ -121,3 +121,10 @@ After that, it will executed `FilterConfig.RegisterGlobalFilters(GlobalFilters.F
         }
     }
 ```
+
+> [!NOTE]
+> For more information about API,
+>
+> + [System.Web.Mvc.GlobalFilterCollection class (MSDS)](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.globalfiltercollection?view=aspnet-mvc-5.2)
+>
+> + [System.Web.Mvc.HandleErrorAttribute class (MSDS)](https://learn.microsoft.com/en-us/dotnet/api/system.web.mvc.handleerrorattribute?view=aspnet-mvc-5.2)
