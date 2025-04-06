@@ -1,7 +1,7 @@
 # regularity
 ## 1. About parameters' meaning and definition in all methods under `System.Web.Mvc` namespace
 
-[!TIP]
+> [!TIP]
 > For all methods under `System.Web.Mvc` except than `ActionLink` method, I observe that
 > 
 >>
