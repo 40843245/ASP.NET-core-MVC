@@ -11,8 +11,7 @@
 >> | 1th parameter | `String` | always named `controllerName` in MSDS | It is self-explanatory, it indicates the controller's name. |
 >> | 2th parameter | `object` | `routeValues` in MSDS | An object that contains the parameters for a route. The parameters are retrieved through reflection by examining the properties of the object. The object is typically created by using object initializer syntax. |
 >> | 2th parameter | `System.Web.Routing.RouteValueDictionary` | Same as above |
->> | 3th parameter | `IDictionary<String,Object>` | `htmlAttributes` | An object that contains the HTML attributes to set for the element. In each key-value pair, it will define a new attribute name by key and assign the value as attribute's value (if the key does not exist in the attributes),
->> or it will override the attribute with value (if the key does not exist in the attributes). |
+>> | 3th parameter | `IDictionary<String,Object>` | `htmlAttributes` | An object that contains the HTML attributes to set for the element. In each key-value pair, it will define a new attribute name by key and assign the value as attribute's value (if the key does not exist in the attributes), or it will override the attribute with value (if the key does not exist in the attributes). |
 >>
 >> And in `ActionLink` method, it has one more parameter. In 0th parameter, it must be a `String` type that indicates the link text. 
 >>
